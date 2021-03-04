@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+  
+    <h2>MY EBOOKS</h2>
+    {% for book in books %}
+  
+            <h3>{{ book.book_id}} : {{ book.title }}  :  {{ book.category }}</h3>
+    {% endfor %}
+
+{% endblock content %}
