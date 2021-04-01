@@ -39,7 +39,7 @@ def login():
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
-    if current_user.is_authenticated:
+    if current_user.is_authenticated: 
         return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -57,13 +57,50 @@ def register():
 @app.route("/MyBooks")
 @login_required
 def MyBooks():
-    # books = reader_books.query.filter_by(reader_id=current_user.reader_id)
     q=db.engine.execute("SELECT book_id,title,category FROM books NATURAL JOIN reader_books WHERE reader_id=(?)",(current_user.reader_id))
     books=q.fetchall()
     return render_template('MyBooks.html', books=books)
 
 
 @app.route("/logout")
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+@app.route('/AddBooks',methods=['GET', 'POST'])
+@login_required
+def AddBooks():
+    q=db.engine.execute("SELECT * FROM books WHERE books.book_id NOT IN (SELECT b.book_id FROM books AS b JOIN reader_books AS rb ON b.book_id=rb.book_id AND rb.reader_id=(?))",(current_user.reader_id))
+    books=q.fetchall()
+    if request.method=='POST':
+        response=request.form.getlist('myselect')
+        for i in response:
+            db.engine.execute(" INSERT INTO reader_books(reader_id,book_id) VALUES (?,?) ",(current_user.reader_id,int(i)) )
+            db.session.commit()
+        flash('Books Added! YAY!', 'success')
+        return redirect(url_for('MyBooks'))
+    return render_template("AddBooks.html",books=books)
+
+@app.route('/DeleteBooks',methods=['GET', 'POST'])
+@login_required
+def DeleteBooks():
+    q=db.engine.execute("SELECT book_id,title,category FROM books NATURAL JOIN reader_books WHERE reader_id=(?)",(current_user.reader_id))
+    books=q.fetchall()
+    if request.method=='POST':
+        response=request.form.getlist('myselect')
+        for i in response:
+            db.engine.execute("DELETE FROM reader_books WHERE reader_id=(?) AND book_id=(?) ",(current_user.reader_id,int(i)) )
+            db.session.commit()
+        flash('Books Deleted!', 'success')
+        return redirect(url_for('MyBooks'))
+    return render_template('DeleteBooks.html', books=books)
+
+
+@app.route('/SearchBooks',methods=['GET','POST'])
+@login_required
+def SearchBooks():
+    q=db.engine.execute("SELECT * FROM BOOKS")
+    books=q.fetchall()
+    return render_template('search.html', books=books)
+
