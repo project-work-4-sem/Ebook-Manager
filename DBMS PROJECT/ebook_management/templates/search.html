@@ -1,34 +1,47 @@
 {% extends "layout.html" %}
 {% block content %}
-
 <script src="static/searchbook.js"></script> 
+
 <div align="center">
   
     <h4>Search</h4>
     <input id="myInput" onkeyup="myFunctionName()" type="text" placeholder="Search by name.."> 
+    
+    <select name="category" onchange="myNewFunction()">
+      <option value="All" selected>All</option>
+      <option value="programming">programming</option>
+      <option value="fiction">fiction</option>
+      <option value="sci-fi">sci-fi</option>
+      <option value="science">science</option>
+      <option value="military-art">military-art</option>
+    </select>
     <table id="myTable">  
-            <tr class="header">  
-                <th>ID</th>
-                <th>Title</th>  
-                <th>Category</th>  
-            </tr>  
-        {% for book in books %}
-        <tr>
-        
-          <td>
-        {{ book.book_id}}
-          </td>
+      <thead> 
+          <th style="width: 100px ">ID</th>
+          <th style="width: 100px ">Title</th>  
+          <th style="width: 100px ">Category</th>  
+      </thead>
+        <tbody style="width: 400px;">
+          {% for book in books %}
+          <tr>
           
-        <td>
-        {{ book.title }}
-          </td>
-          <td>
-        {{ book.category }}
-          </td>
+            <td style="width: 40px;">
+          {{ book.book_id}}
+            </td>
             
-        </tr>
-        {% endfor %}
+          <td style="width: 200px;">
+          {{ book.title }}
+            </td>
+            <td style="width: 160px;">
+          {{ book.category }}
+            </td>
+              
+          </tr>
+          {% endfor %}
+        </tbody>
+        
 </table>  
 </div>
 <br>
+
 {% endblock content %}
