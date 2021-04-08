@@ -212,6 +212,17 @@ font-weight: 7000;}
   border-bottom: 1px solid #ddd;
 }
 
+#grid{
+  display:flex;
+  justify-content: space-around;
+  align-content: center;
+  width: 900px;
+  flex-wrap: wrap;
+}
+#grid div {
+  margin: 3rem;
+}
+
 #myTable tr.header, #myTable tr:hover {
   /* Add a grey background color to the table header and on hover */
   background-color: #696969;
