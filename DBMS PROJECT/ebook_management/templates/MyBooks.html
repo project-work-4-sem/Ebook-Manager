@@ -1,31 +1,26 @@
 {% extends "layout.html" %}
 {% block content %}
-
-
 <div align="center">
+            
             <h4>MY EBOOKS</h4>
-        <table border=2 align="center">  
-            <thead>  
-                <td>ID</td>
-                <td>Title</td>  
-                <td>Category</td>  
-            </thead>  
-              
+        <main id="grid"> 
             {% for row in books %}  
-              
-                <tr>  
-                    <td>{{row.book_id}}</td>  
-                    <td>{{row.title}}</td>  
-                    <td>{{row.category}}</td>  
-                </tr>  
-              
+            <div ondblclick='window.open("{{row.link}}")'>
+                <img src={{row.path}} title="category:{{row.category}}     Bookid:{{row.book_id}}   isbn:{{row.isbn}}"  width="250" height="250">
+                
+                
+                <h4 style="margin-top: 1rem">{{row.title}}</h4>  
+                
+
+            </div>
             {% endfor %}  
-        </table>  
+              
+        </main>  
 
 </div>
 <br>
 <div align="center">
-
+  
   <div class="button-center">
     <a href="{{ url_for('AddBooks') }}" class="btn button">+Add Books</a>
   </div>
@@ -36,3 +31,4 @@
 
 </div>
 {% endblock content %}
+
