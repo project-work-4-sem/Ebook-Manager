@@ -13,9 +13,9 @@ from werkzeug.utils import secure_filename
 @app.route('/')
 @app.route('/home')
 def home():
-	res=db.engine.execute(" SELECT * FROM books ")
-	book=res.fetchall()
-	return render_template("home.html",book=book)
+    res1=db.engine.execute(" SELECT * FROM books ")
+    book=res1.fetchall()
+    return render_template("home.html",book=book)
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -57,8 +57,9 @@ def register():
 @app.route("/MyBooks")
 @login_required
 def MyBooks():
-    q=db.engine.execute("SELECT book_id,title,category FROM books NATURAL JOIN reader_books WHERE reader_id=(?)",(current_user.reader_id))
+    q=db.engine.execute("SELECT book_id,title,link,isbn,path,category FROM books NATURAL JOIN reader_books WHERE reader_id=(?)",(current_user.reader_id))
     books=q.fetchall()
+    
     return render_template('MyBooks.html', books=books)
 
 
@@ -103,10 +104,4 @@ def SearchBooks():
     q=db.engine.execute("SELECT * FROM BOOKS")
     books=q.fetchall()
     return render_template('search.html', books=books)
-
-@app.route("/books/<int:book_id>")
-def Books(book_id):
-    book = books.query.get_or_404(book_id)
-    return render_template('post.html',book=book)
-
 
