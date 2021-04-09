@@ -6,7 +6,7 @@
             <h4>ALL EBOOKS</h4>
         <main id="grid"> 
             {% for row in book %}  
-            <div ondblclick='window.open("{{row.link}}")'>
+            <div ondblclick='window.open("{{row.link}}")' onclick='window.open("{{url_for('Books',book_id=row.book_id)}}")' >
                 <img src={{row.path}} title="category:{{row.category}}     Bookid:{{row.book_id}}   isbn:{{row.isbn}}"  width="250" height="250">
                 
                 
