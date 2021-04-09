@@ -105,3 +105,9 @@ def SearchBooks():
     books=q.fetchall()
     return render_template('search.html', books=books)
 
+@app.route("/books/<int:book_id>",methods=['GET', 'POST'])
+def Books(book_id):
+    book = books.query.get_or_404(book_id)
+    return render_template('post.html',book=book)
+
+
