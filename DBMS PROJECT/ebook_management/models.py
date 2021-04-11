@@ -13,6 +13,7 @@ class reader_books(db.Model) :
 	__tablename__ = 'Reader_Books'
 	reader_id=db.Column('reader_id',db.Integer,db.ForeignKey('reader.reader_id'),primary_key=True)
 	book_id=db.Column('book_id', db.Integer, db.ForeignKey('books.book_id'),primary_key=True)
+	content=db.Column('content',db.Text,nullable=True)
 
 class reader(db.Model,UserMixin):
  	reader_id=db.Column(db.Integer,primary_key=True)
@@ -34,7 +35,11 @@ class books(db.Model):
     isbn=db.Column(db.Integer,nullable=False)
     title=db.Column(db.String(20))
     category=db.Column(db.String(20))
+    link=db.Column(db.Text)
+    path=db.Column(db.Text)
     # readers=db.relationship('reader',secondary='Reader_Books',backref=db.backref('books_reading',lazy='dynamic'))
 
     def __repr__(self):
     	return f"books('{self.isbn}','{self.title}','{self.category}')"
+
+
