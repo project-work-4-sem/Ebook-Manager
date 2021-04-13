@@ -8,7 +8,8 @@
             {% if current_user.is_authenticated %}
             <div align="center"><a href="{{book.link}}" class="btn button">READ</a></div>
             {% endif %}
-
+            <br>
+            <br>
             <h4>Reviews for this book</h4>
             <br>
             {%for review in reviews%} 
@@ -28,8 +29,9 @@
                               <div class="article-metadata">
                                 <a class="mr-2" href="#">{{ authors[review.reader_id] }}</a>
                                 <div>
-                                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="#">Edit Review</a>
-                                    <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete Review</button>
+                                    <button type="button" class="btn btn-secondary btn-sm mt-1 mb-1" data-toggle="modal" data-target="#editModal">Edit</button>
+                                    <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+
                                     </div>
                               </div>
                               <p class="article-content">{{ review.content }}</p>
@@ -80,6 +82,32 @@
             <fieldset>
             <div class="modal-footer d-flex justify-content-center form-group">
               {{form.submit(class="btn btn-outline-info")}}
+            </div>      
+
+            </fieldset>
+            
+            </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="custom-modal">Edit Review</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+            <form method="POST" action="" enctype="multipart/form-data">
+                  {{ form2.hidden_tag() }}
+                  <div class="modal-footer d-flex justify-content-center form-group">
+                        {{ form2.review_content_edit(class="form-control") }}
+                  </div>
+            <fieldset>
+            <div class="modal-footer d-flex justify-content-center form-group">
+              {{form2.submit_edit(class="btn btn-outline-info")}}
             </div>      
 
             </fieldset>
