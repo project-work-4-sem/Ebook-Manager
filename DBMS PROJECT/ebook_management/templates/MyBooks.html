@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+<div align="center">
+            
+            <h4>MY EBOOKS</h4>
+        <main id="grid"> 
+            {% for row in books %}  
+            <div  onclick='window.open("{{url_for('Books',book_id=row.book_id)}}")'>
+                <img src="{{url_for('static',filename=row.path)}}" title="category:{{row.category}}     Bookid:{{row.book_id}}   isbn:{{row.isbn}}"  width="250" height="250">
+                
+                
+                <h4 style="margin-top: 1rem">{{row.title}}</h4>  
+                
+
+            </div>
+            {% endfor %}  
+              
+        </main>  
+
+</div>
+<br>
+<div align="center">
+  
+  <div class="button-center">
+    <a href="{{ url_for('AddBooks') }}" class="btn button">+Add Books</a>
+  </div>
+  <br>
+  <div class="button-center">
+    <a href="{{ url_for('DeleteBooks') }}" class="btn button">Delete Books</a>
+  </div>
+
+</div>
+{% endblock content %}
+
