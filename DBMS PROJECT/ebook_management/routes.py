@@ -4,7 +4,7 @@ import csv
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from ebook_management import app, db, bcrypt
-from ebook_management.forms import LoginForm,RegistrationForm, UpdateAccountForm, AddReviewForm
+from ebook_management.forms import LoginForm,RegistrationForm, UpdateAccountForm, AddReviewForm, EditReviewForm
 from ebook_management.models import books, reader, reader_books, reader_books_review
 from flask_login import login_user, current_user, logout_user, login_required
 from werkzeug.utils import secure_filename
@@ -107,15 +107,11 @@ def SearchBooks():
 
 @app.route("/books/<int:book_id>",methods=['GET', 'POST'])
 def Books(book_id):
-    form=AddReviewForm()
-    if form.validate_on_submit():
-    	db.engine.execute("INSERT INTO reader_books_review(reader_id,book_id,content) VALUES (?,?,?)",(current_user.reader_id,book_id,form.review_content.data) )
-    	db.session.commit()
-    	flash('Review Added! YAY!', 'success')
-    	return redirect(url_for('Books',book_id=book_id))
-    book = books.query.get_or_404(book_id)
     q=db.engine.execute("SELECT * FROM reader_books_review where book_id=(?)",book_id)
     reviews=q.fetchall()
+    form=AddReviewForm()
+    form2=EditReviewForm()
+    book = books.query.get_or_404(book_id)
     authors={}
     present=False
     for x in reviews:
@@ -125,7 +121,22 @@ def Books(book_id):
 
     	if current_user.reader_id==x.reader_id:
     		present=True
-    return render_template('Book.html',book=book,reviews=reviews,authors=authors,present=present,form=form)
+    if form.validate_on_submit() and form.submit.data:
+    	db.engine.execute("INSERT INTO reader_books_review(reader_id,book_id,content) VALUES (?,?,?)",(current_user.reader_id,book_id,form.review_content.data) )
+    	db.session.commit()
+    	flash('Review Added! YAY!', 'success')
+    	return redirect(url_for('Books',book_id=book_id))
+    if form2.validate_on_submit() and form2.submit_edit.data:
+    	db.engine.execute( "UPDATE reader_books_review SET content=(?) WHERE reader_id=(?) AND book_id=(?)",(form2.review_content_edit.data,current_user.reader_id,book_id))
+    	db.session.commit()
+    	flash('Your review has been updated!', 'success')
+    	return redirect(url_for('Books',book_id=book_id))
+    elif request.method == 'GET':
+    	for x in reviews:
+    		if x.reader_id==current_user.reader_id:
+    			break
+    	form2.review_content_edit.data=x.content
+    return render_template('Book.html',book=book,reviews=reviews,authors=authors,present=present,form=form,form2=form2)
 
 @app.route("/account", methods=['GET', 'POST'])
 @login_required
