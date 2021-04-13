@@ -59,3 +59,8 @@ class UpdateAccountForm(FlaskForm):
 class AddReviewForm(FlaskForm):
     review_content=TextAreaField('Review')
     submit = SubmitField('Submit')
+
+class EditReviewForm(FlaskForm):
+    review_content_edit=TextAreaField('Review')
+    submit_edit = SubmitField('Submit')
+
