@@ -114,6 +114,8 @@ def Books(book_id):
     book = books.query.get_or_404(book_id)
     authors={}
     present=False
+    if current_user.is_authenticated==False:
+        return redirect(url_for('login'))
     for x in reviews:
     	if x.content!=None:
     		author=reader.query.get(x.reader_id)
@@ -132,10 +134,10 @@ def Books(book_id):
     	flash('Your review has been updated!', 'success')
     	return redirect(url_for('Books',book_id=book_id))
     elif request.method == 'GET':
-    	for x in reviews:
-    		if x.reader_id==current_user.reader_id:
-    			break
-    	form2.review_content_edit.data=x.content
+        for x in reviews:
+            if x.reader_id==current_user.reader_id:
+                form2.review_content_edit.data=x.content
+                break
     return render_template('Book.html',book=book,reviews=reviews,authors=authors,present=present,form=form,form2=form2)
 
 @app.route("/account", methods=['GET', 'POST'])
