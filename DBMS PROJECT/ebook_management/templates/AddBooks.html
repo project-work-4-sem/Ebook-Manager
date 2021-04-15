@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<div align="center">
+            <h4>SELECT THE BOOKS WHICH YOU WANT TO ADD</h4>
+            <br>
+        <form method='POST' action="/AddBooks">
+          <table border=2 align="center">  
+            <thead>  
+                <td>ID</td>
+                <td>Title</td>  
+                <td>Category</td>  
+            </thead>  
+        {% for book in books %}
+        <tr>
+        
+          <td>
+            <input type="checkbox" name="myselect" value={{book.book_id}} class="form-check-input">      
+            
+        <label class="form-check-label">{{book.book_id}}</label>
+          </td>
+          
+        <td>
+        <label class="form-check-label">{{book.title}}</label>
+          </td>
+          <td>
+        <label class="form-check-label">{{book.category}}</label>
+          </td>
+            
+        </tr>
+        {% endfor %}
+      </table>
+      <br>
+    <input type="submit" class="btn button" value="ADD">
+    </form>
+
+</div>
+<br>
+<div align="center">
+
+  <!-- <div class="button-center">
+    <a href="{{ url_for('MyBooks') }}" class="btn button">ADD</a>
+  </div> -->
+  <!-- <form method="POST" action="/AddBooks">
+
+        a1<input type="checkbox" value="1" name="myselect">
+        a2<input type="checkbox" value="2" name="myselect">
+        a3<input type="checkbox" value="3" name="myselect">
+        a4<input type="checkbox" value="4" name="myselect">
+        <input type="submit">
+  </form> -->
+</div>
+{% endblock content %}
