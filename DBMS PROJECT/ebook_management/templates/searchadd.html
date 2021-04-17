@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block content %}
+<script src="static/searchbook.js"></script> 
+
+<div align="center">
+  
+    <h4>Search</h4>
+    <input id="myInput" onkeyup="myFunctionName()" type="text" placeholder="Search by name.."> 
+    
+    <select name="category" onchange="myNewFunction()">
+      <option value="All" selected>All</option>
+      <option value="Programming">Programming</option>
+      <option value="fiction">fiction</option>
+      <option value="Sci-fi">Sci-fi</option>
+      <option value="Physics">Physics</option>
+      <option value="Enviromental Science">Enviromental Science</option>
+      <option value="Mathematics">Mathematics</option>
+    </select>
+    <table id="myTable">  
+      <thead> 
+          <th style="width: 100px "></th>
+          <th style="width: 100px ">Title</th>  
+          <th style="width: 100px ">Category</th>  
+      </thead>
+        <tbody style="width: 400px;">
+          {% for book in books %}
+          <tr onclick='window.open("{{url_for('Books',book_id=book.book_id)}}")'>
+          
+            <td style="width: 40px;">
+            <img src="{{url_for('static',filename=book.path)}}" height="100" width="100" >
+            </td>
+            
+          <td style="width: 200px;">
+          {{ book.title }}
+            </td>
+            <td style="width: 160px;">
+          {{ book.category }}
+            </td>
+              
+          </tr>
+          {% endfor %}
+        </tbody>
+        
+</table>  
+</div>
+<br>
+
+{% endblock content %}
