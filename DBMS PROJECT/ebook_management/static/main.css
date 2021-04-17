@@ -219,7 +219,7 @@ h5.custom-modal {
 #grid{
   display:flex;
   justify-content: space-around;
-  align-content: center;
+  align-content: flex;
   width: 900px;
   flex-wrap: wrap;
 }
