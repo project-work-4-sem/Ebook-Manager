@@ -227,6 +227,20 @@ h5.custom-modal {
   margin: 3rem;
 }
 
+#grid div:hover{
+  opacity: 0.5;
+  
+  width:170;
+  height: 160;
+  visibility: visible;
+}
+
+#grid div:hover h4{
+  visibility: visible !important;
+}
+
+
+
 #myTable tr.header, #myTable tr:hover {
   /* Add a grey background color to the table header and on hover */
   background-color: #696969;
