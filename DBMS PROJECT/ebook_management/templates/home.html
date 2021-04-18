@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+<div align="center">
+            <h2>HOME PAGE</h2>  
+            <br>
+            <h4>ALL EBOOKS</h4>
+        <main id="grid"> 
+            {% for row in book %}  
+            <div onclick='window.open("{{url_for('Books',book_id=row.book_id)}}")' >
+                <img src="{{row.path}}" title="category:{{row.category}}     Bookid:{{row.book_id}}   isbn:{{row.isbn}}"  width="200" height="200">
+                
+                
+                <h4 style="margin-top: 1rem">{{row.title}}</h4>  
+                
+
+            </div>
+            {% endfor %}  
+              
+        </main>  
+
+</div>
+{% endblock content %}
