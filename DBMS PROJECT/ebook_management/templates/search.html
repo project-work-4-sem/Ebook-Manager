@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+{% block content %}
+<style type="text/css">
+.alphabet{
+  display:flex;
+  justify-content: center;
+  align-items: initial;
+}
+
+
+</style>
+<script src="static/searchbook.js"></script> 
+
+<div align="center">
+  
+    <h4>Search</h4>
+    <input id="myInput" onkeyup="myFunctionName()" type="text" placeholder="Search by name.."> 
+    
+    <select name="category" onchange="myNewFunction()">
+      <option value="All" selected>All</option>
+      <option value="Programming">Programming</option>
+      <option value="fiction">fiction</option>
+      <option value="Sci-fi">Sci-fi</option>
+      <option value="Science">Science</option>
+      <option value="Engineering">Engineering</option>
+      <option value="mystery">mystery</option>
+      <option value="history">history</option>
+      <option value="classics">classics</option>
+      <option value="robotics">robotics</option>
+      <option value="Enviromental Science">Enviromental Science</option>
+      <option value="Mathematics">Mathematics</option>
+    </select>
+    
+    <ul class="alphabet">
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='A')}}'" type="button" class="btn-secondary">A</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='B')}}'" type="button" class="btn-secondary">B</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='C')}}'" type="button" class="btn-secondary">C</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='D')}}'" type="button" class="btn-secondary">D</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='E')}}'" type="button" class="btn-secondary">E</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='F')}}'" type="button" class="btn-secondary">F</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='G')}}'" type="button" class="btn-secondary">G</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='H')}}'" type="button" class="btn-secondary">H</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='I')}}'" type="button" class="btn-secondary">I</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='J')}}'" type="button" class="btn-secondary">J</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='K')}}'" type="button" class="btn-secondary">K</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='L')}}'" type="button" class="btn-secondary">L</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='M')}}'" type="button" class="btn-secondary">M</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='N')}}'" type="button" class="btn-secondary">N</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='O')}}'" type="button" class="btn-secondary">O</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='P')}}'" type="button" class="btn-secondary">P</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='Q')}}'" type="button" class="btn-secondary">Q</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='R')}}'" type="button" class="btn-secondary">R</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='S')}}'" type="button" class="btn-secondary">S</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='T')}}'" type="button" class="btn-secondary">T</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='U')}}'" type="button" class="btn-secondary">U</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='V')}}'" type="button" class="btn-secondary">V</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='W')}}'" type="button" class="btn-secondary">W</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='X')}}'" type="button" class="btn-secondary">X</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='Y')}}'" type="button" class="btn-secondary">Y</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='Z')}}'" type="button" class="btn-secondary">Z</button>
+     
+    </ul>
+
+    
+
+
+
+    <table id="myTable">  
+      <thead> 
+          <th style="width: 100px "></th>
+          <th style="width: 100px ">Title</th>  
+          <th style="width: 100px ">Category</th> 
+           
+      </thead>
+        <tbody style="width: 400px;">
+          {% for book in books %}
+          <tr onclick='window.open("{{url_for('Books',book_id=book.book_id)}}")'>
+          
+            <td style="width: 10px">
+            {% if book.book_id < 12 %}
+            
+            <img src="{{url_for('static',filename=book.path)}}"   width="150" height="150">
+           
+
+            {% else %}
+            
+            <img src="{{book.path}}" width="150" height="150" >
+             {% endif %}
+            </td>
+           
+          <td style="width: 200px;">
+          {{ book.title }}
+            </td>
+            <td style="width: 160px;">
+          {{ book.category }}
+            </td>
+            
+
+              
+          </tr>
+          {% endfor %}
+        </tbody>
+        
+</table>  
+</div>
+<br>
+
+{% endblock content %}
