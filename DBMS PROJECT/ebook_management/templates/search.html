@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+    <style type="text/css">
+      .alphabet{
+        display:flex;
+        justify-content: center;
+        align-items: initial;
+      }
+
+      .customize{
+        margin-top: 100px;
+        display:grid;
+        justify-content: left;
+        align-items: left;
+      }
+
+
+    </style>
+<script src="static/searchbook.js"></script> 
+</head>
+<body>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-steelhome fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4" href="/">Ebook Manager</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{{ url_for('home') }}">Home</a>
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+              {% if current_user.is_authenticated %}
+                <a class="nav-item nav-link" href="{{ url_for('SearchBooks') }}">Search Books</a>
+                <a class="nav-item nav-link" href="{{ url_for('MyBooks') }}">My Books</a>
+                <a class="nav-item nav-link mr-3" href="{{ url_for('account') }}"><img src="{{url_for('static',filename='misc/account.png')}}" width="25" height="25"></a>
+                <a class="nav-item nav-link" href="{{ url_for('logout') }}"><img src="{{url_for('static',filename='misc/logout.png')}}" width="25" height="25"></a>
+              {% else %}
+                <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+                <a class="nav-item nav-link" href="{{ url_for('register') }}">Sign Up</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <br>
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-2">
+          <div></div>
+          <div></div>
+          <ul class="customize">
+            <p>Filter by Year</p>
+            <a href="{{url_for('SearchBooks')}}">Any Time</a>
+            <a href="{{url_for('SearchBooksYear',start=2010)}}">Since 2010</a>
+            <a href="{{url_for('SearchBooksYear',start=2013)}}">Since 2013</a>
+            <a href="{{url_for('SearchBooksYear',start=2016)}}">Since 2016</a>
+            <p></p>
+            <form action="{{url_for('SearchBooksYear',start=0)}}" enctype="multipart/form-data" method="POST">
+              <label>Custom range...</label><br>
+              <input type="text" id="from" name="Start" style="width:41px;">
+              <label for="to">-</label>
+              <input type="text" id="to" name="End" style="width:41px;"><br><br>
+              <input type="submit" value="Submit">
+            </form>
+
+
+          </ul>
+
+          
+        </div>
+        <div class="col-md-8">
+
+
+        <div align="center">
+          
+            <h4>Search</h4>
+            <input id="myInput" onkeyup="myFunctionName()" type="text" placeholder="Search by name.."> 
+            
+            <select name="category" onchange="myNewFunction()">
+              <option value="All" selected>All</option>
+              <option value="Programming">Programming</option>
+              <option value="fiction">fiction</option>
+              <option value="Sci-fi">Sci-fi</option>
+              <option value="Science">Science</option>
+              <option value="Engineering">Engineering</option>
+              <option value="mystery">mystery</option>
+              <option value="history">history</option>
+              <option value="classics">classics</option>
+              <option value="robotics">robotics</option>
+              <option value="Enviromental Science">Enviromental Science</option>
+              <option value="Mathematics">Mathematics</option>
+            </select>
+            
+            <ul class="alphabet">
+              <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='A')}}'" type="button" class="btn-secondary">A</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='B')}}'" type="button" class="btn-secondary">B</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='C')}}'" type="button" class="btn-secondary">C</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='D')}}'" type="button" class="btn-secondary">D</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='E')}}'" type="button" class="btn-secondary">E</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='F')}}'" type="button" class="btn-secondary">F</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='G')}}'" type="button" class="btn-secondary">G</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='H')}}'" type="button" class="btn-secondary">H</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='I')}}'" type="button" class="btn-secondary">I</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='J')}}'" type="button" class="btn-secondary">J</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='K')}}'" type="button" class="btn-secondary">K</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='L')}}'" type="button" class="btn-secondary">L</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='M')}}'" type="button" class="btn-secondary">M</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='N')}}'" type="button" class="btn-secondary">N</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='O')}}'" type="button" class="btn-secondary">O</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='P')}}'" type="button" class="btn-secondary">P</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='Q')}}'" type="button" class="btn-secondary">Q</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='R')}}'" type="button" class="btn-secondary">R</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='S')}}'" type="button" class="btn-secondary">S</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='T')}}'" type="button" class="btn-secondary">T</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='U')}}'" type="button" class="btn-secondary">U</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='V')}}'" type="button" class="btn-secondary">V</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='W')}}'" type="button" class="btn-secondary">W</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='X')}}'" type="button" class="btn-secondary">X</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='Y')}}'" type="button" class="btn-secondary">Y</button>
+      <button onclick="location.href='{{url_for('SearchBooksAlphabet',letter='Z')}}'" type="button" class="btn-secondary">Z</button>
+             
+            </ul>
+
+            
+
+
+
+            <table id="myTable">  
+              <thead> 
+                  <th style="width: 100px "></th>
+                  <th style="width: 100px ">Title</th>  
+                  <th style="width: 100px ">Category</th> 
+                   
+              </thead>
+                <tbody style="width: 400px;">
+                  {% for book in books %}
+                  <tr onclick="window.open('{{url_for('Books',book_id=book.book_id)}}')">
+                  
+                    <td style="width: 10px">
+                    {% if book.book_id < 12 %}
+                    
+                    <img src="{{url_for('static',filename=book.path)}}"   width="150" height="150">
+                   
+
+                    {% else %}
+                    
+                    <img src="{{book.path}}" width="150" height="150" >
+                     {% endif %}
+                    </td>
+                   
+                  <td style="width: 200px;">
+                  {{ book.title }}
+                    </td>
+                    <td style="width: 160px;">
+                  {{ book.category }}
+                    </td>
+                    
+
+                      
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                
+        </table>  
+        </div>
+<br>
+
+
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          <br>
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+    </main>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
