@@ -63,6 +63,13 @@ def MyBooks():
     return render_template('MyBooks.html', books=books)
 
 
+@app.route("/myPreviousBokks")
+def myPreviousBooks():
+    q=db.engine.execute("SELECT book_id,title,link,isbn,path,category FROM books where book_id IN(select book_id from track_record where reader_id=(?))",(current_user.reader_id))
+    previousBooks=q.fetchall()
+
+    return render_template('myPreviousBooks.html',books=previousBooks)
+
 @app.route("/logout")
 @login_required
 def logout():
