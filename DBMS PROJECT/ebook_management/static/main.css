@@ -1,6 +1,6 @@
 body {
-  background:#e3e9e7de;
-  /*background-image: url("img/cool-background.png");*/
+  background: linear-gradient(
+    to left, #4635418f 0%, rgb(245 245 242) 100% );
   color: #201f1e;
   margin-top: 5rem;
   font-family: sans-serif;
