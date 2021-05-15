@@ -2,33 +2,14 @@
 {% block content %}
 
 <div align="center">
-    
-            <!-- <h2>HOME PAGE</h2>  
-            <br>
-            <h4>ALL EBOOKS</h4>
-        <main id="grid"> 
-            {% for row in book[:50] %}
-            <div onclick='window.open("{{url_for('Books',book_id=row.book_id)}}")' style="background: #26C485;" >
-            {% if row.book_id < 12 %}
-            
-            <img src="{{url_for('static',filename=row.path)}}" title="category:{{row.category}}     Bookid:{{row.book_id}}   isbn:{{row.isbn}}"  width="200" height="200">
-           
-
-            {% else %}
-            
-            <img src="{{row.path}}" title="category:{{row.category}}     Bookid:{{row.book_id}}   isbn:{{row.isbn}}"  width="200" height="200" >
-           
-            {% endif %}
-                
-                
-                <br>
-                <h4 style="margin-top: 1rem;width:180px">{{row.title}}</h4>  
-                
-            
-            </div>
-            {% endfor %}  
-              
-        </main>   -->
-
+    <div class="home-page">
+    Welcome To Our Ebook-Manager
+  </div>
+  <br>
+    <p class="home">The tool where you can manage your ebooks at one place</p>
+    <br>
+  <div class="button-center">
+    <a href="{{ url_for('about') }}" class="btn button">Learn More</a>
+  </div>
 </div>
 {% endblock content %}
